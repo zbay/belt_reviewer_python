@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>Books Home</title>
+        <link rel="stylesheet" type="text/css" href="/static/css/general.css">
+        <style>
+            .col{
+                display:inline-block;
+                vertical-align: top;
+                min-width:40%;
+                max-width:80%;
+                margin-left:4%;
+                margin-right:4%;
+            }
+            .scrollbox{
+                overflow-y: scroll;
+                max-height: 500px;
+                border: 1px solid black;
+                padding: 5px 20px 5px 20px;
+            }
+            .book{
+                border-bottom:2px solid black;
+            }
+            h1{
+                position:relative;
+                top:-20px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="col">Welcome, {{alias}}!</h1>
+        <div class="col">
+            <a href="/books/add">Add Book and Review</a> | <a href="/logout">Logout</a>
+        </div>
+        <div>
+            <div class="col">
+                <h2>Recent Book Reviews</h2>
+                {% for review in reviews %}
+                    <div class="book">
+                        <p><a href="/books/{{review.book.id}}">{{review.book.title}}</a></p>
+                        <p>Rating: {{review.stars}}</p>
+                        <p>
+                            <a href="/users/{{review.reviewer.id}}">{{review.reviewer.alias}}</a> says: {{ review.text }}
+                        </p>
+                        <p>Posted on: {{review.created_at}}</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="col">
+                <h2>All Books with Reviews</h2>
+                <div class="scrollbox">
+                    {% for book in books %}
+                        <p><a href="/books/{{book.id}}">{{book.title}}</a></p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

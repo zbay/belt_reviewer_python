@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <title>Welcome</title>
+        <style>
+            .col{
+                display:inline-block;
+                vertical-align: top;
+                min-width:40%;
+                max-width:80%;
+                margin-left:4%;
+                margin-right:4%;
+            }
+            form > *{
+                display:flex;
+                flex-direction:column;
+                margin-top:10px;
+                margin-bottom:10px;
+            }
+            form{
+                border: 2px solid black;
+                padding:30px 20px 20px 20px;
+            }
+            label{
+                font-weight:bold;
+            }
+            h2{
+                position:relative;
+                top:35px;
+                left:10px;
+                background-color:white !important;
+                width:100px;
+                text-align:center;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome!</h1>
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <div>
+            <div class="col">
+                <h2>Register</h2>
+                <form action="/register" method="post">
+                    {% csrf_token%}
+                    <div>
+                        <label for="name" class="col">Name:</label>
+                        <input type="text" class="col" name="name" value="{{name}}"/>
+                    </div>
+                    <div>
+                        <label for="alias" class="col">Alias:</label>
+                        <input type="text" class="col" name="alias" value="{{alias}}"/>
+                    </div>
+                    <div>
+                        <label for="email" class="col">Email:</label>
+                        <input type="text" name="email" class="col" value="{{email}}"/>
+                    </div>
+                    <div>
+                        <label for="password" class="col">Password:</label>
+                        <input type="password" class="col" name="password"/>
+                    </div>
+                    <p>*Password should be at least 8 characters</p>
+                    <div>
+                        <label for="confirm_password" class="col">Confirm PW:</label>
+                        <input type="password" class="col" name="confirm_password"/>
+                    </div>
+                    <input type="submit" value="Register"/>
+                </form>
+            </div>
+            <div class="col">
+                <h2>Login</h2>
+                <form action="/login" method="post">
+                    {% csrf_token%}
+                    <div>
+                        <label for="email" class="col">Email:</label>
+                        <input type="text" name="email" class="col" value="{{email}}"/>
+                    </div>
+                    <div>
+                        <label for="password" class="col">Password:</label>
+                        <input type="password" class="col" name="password"/>
+                    </div>
+                    <input type="submit" value="Login"/>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
